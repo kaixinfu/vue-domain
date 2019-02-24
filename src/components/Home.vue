@@ -2,7 +2,7 @@ import {router-link} from vue-router
 
 <template>
   <div class="hello">
-    hello
+    首页
   </div>
 </template>
 
