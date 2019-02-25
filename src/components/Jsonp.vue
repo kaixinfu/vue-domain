@@ -1,8 +1,8 @@
 <template>
   <div class="centent">
     <div>{{ msg }}</div>
-    <el-button type="primary" v-on:click="handleClick">直接请求</el-button>
-    <el-button type="primary" v-on:click="handleClickJsonp">jsonp请求</el-button>
+    <el-button type="primary" v-on:click="handleClickJsonp('Get')">get 请求</el-button>
+    <el-button type="primary" v-on:click="handleClickJsonp('Post')">post 请求</el-button>
   </div>
 </template>
 
@@ -17,26 +17,15 @@ export default {
     }
   },
   methods: {
-    handleClick () {
-      this.$axios({
-        method: 'get',
-        url: this.url
+    handleClickJsonp (type) {
+      this.$options.methods.sendJsonp({
+        url: `${this.url}${type}`,
+        reqPort: '3000',
+        callback: 'alert'
       }).then(res => {
         console.log('res', res)
       }).catch(error => {
         console.log('error', error)
-      })
-    },
-    handleClickJsonp () {
-      this.$options.methods.sendJsonp({
-        url: this.url,
-        reqPort: '3000',
-        callback: 'alert'
-      }).then(res => {
-        console.log('res...0')
-        console.log('res...1', res)
-      }).catch(error => {
-        console.log('error...0', error)
       })
     },
     sendJsonp ({url, reqPort, callback, _this}) {
